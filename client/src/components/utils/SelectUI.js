@@ -48,6 +48,7 @@ export default function MultipleSelect({
 
   return (
     <FormControl className={classes.formControl} error={tagsChosen.error}>
+      {/* Select component to choose the list of tags related to the challenge */}
       <InputLabel id="demo-mutiple-checkbox-label">
         {tagsChosen.label}
       </InputLabel>

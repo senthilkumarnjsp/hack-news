@@ -25,6 +25,7 @@ const ModalUI = (props) => {
       className={classes.modal}
       closeAfterTransition
     >
+      {/* Modal component for generic popover purpose - Reusable one */}
       <Fade in={props.open}>
         <div className={classes.paper}>
           <p id="transition-modal-description">

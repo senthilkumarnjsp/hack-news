@@ -60,6 +60,7 @@ const Header = (props) => {
   const [openModal, setOpenModal] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
+    // Responsible to trigger the side drawer to open or close
     if (
       event &&
       event.type === "keydown" &&
@@ -71,14 +72,15 @@ const Header = (props) => {
   };
 
   const handleCreate = () => {
+    // Responsible method for create challenge modal
     const prev = !openModal;
     setOpenModal(prev);
-    console.log(`Create modal triggered ${openModal}`);
     prev ? props.history.push("/new") : props.history.push("/home");
   };
 
   return (
     <div className={classes.root}>
+      {/* Header Component of the app */}
       <CssBaseline />
       <AppBar
         position="fixed"

@@ -6,10 +6,10 @@ const Login = (props) => {
 
   const handleInputChange = (e) => {
     let input = e.target.value;
-    // console.log(input, employee);
     setEmployee(input);
   };
 
+  // Method to handle login functionality
   const handleSignin = async (e) => {
     e.preventDefault();
     const result = await fetch("/login", {
@@ -24,6 +24,7 @@ const Login = (props) => {
     setWithExpiry("authToken", token, 10800000);
   };
 
+  // Method to set the token retrieved from server in local storage with expiration
   function setWithExpiry(key, value, ttl) {
     const now = new Date();
     console.log(value);
@@ -43,6 +44,7 @@ const Login = (props) => {
   return (
     <>
       <div className="login-box">
+        {/* Login component of the app */}
         <h2>LOGIN</h2>
         <input
           type="text"

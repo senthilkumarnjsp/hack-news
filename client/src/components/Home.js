@@ -53,6 +53,7 @@ const Home = (props) => {
   let [error, setError] = useState(null);
   const classes = useStyles();
 
+  // Responsible for hitting the backend route to get the initial data
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch("/api/home", {
@@ -67,6 +68,7 @@ const Home = (props) => {
     fetchData();
   }, [liked]);
 
+  // Method to retrieve token stored in local storage and to check its expiry
   function getWithExpiry(key) {
     const itemStr = localStorage.getItem(key);
     // if the item doesn't exist, return null
@@ -85,6 +87,7 @@ const Home = (props) => {
     return item.token;
   }
 
+  // Method to handle the voting of a challenge
   const handleVoteOrTake = async (challengeID, goto) => {
     console.log(`hi from handleVote method and received value of ${goto}`);
     const result = await fetch(`/api${goto}`, {
@@ -104,6 +107,7 @@ const Home = (props) => {
 
   return (
     <div className={classes.root}>
+      {/* Home component to display the challenges */}
       <Grid container spacing={2}>
         <Grid item container sm={3}></Grid>
         <Grid item container sm={6} xs={12}>

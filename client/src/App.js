@@ -8,6 +8,7 @@ import Home from "./components/Home";
 function App() {
   const [employee, setEmployee] = useState(null);
 
+  // Method to set the employee ID to provide the same to all components
   const handleEmployeeChange = (user) => {
     setEmployee(user.employeeID);
     console.log(

@@ -34,6 +34,7 @@ const Creator = (props) => {
     helperText: "Give the challenge some tags",
   });
 
+  // List of predefined tags
   const tags = [
     "#React",
     "#Angular",
@@ -55,12 +56,14 @@ const Creator = (props) => {
     "#Personal",
   ];
 
+  // Method to handle the title input
   const handleTitleInput = (e) => {
     let titleInput = e.target.value.trim();
     titleInput &&
       setTitle({ ...title, value: titleInput, label: "Title", error: false });
   };
 
+  // Method to handle the description input
   const handleDescriptionInput = (e) => {
     let descriptionInput = e.target.value.trim();
     descriptionInput &&
@@ -72,10 +75,8 @@ const Creator = (props) => {
       });
   };
 
+  // Method to handle tags input
   const handleTagsInput = (e) => {
-    // const tagsSelected = tagsChosen;
-    // console.log(tagsSelected, e.target.value);
-    // tagsSelected.push(e.target.value);
     e.target?.value &&
       setTagsChosen({
         ...tagsChosen,
@@ -83,9 +84,9 @@ const Creator = (props) => {
         label: "Tags",
         error: false,
       });
-    console.log(tagsChosen);
   };
 
+  // Method to retrieve token stored in the local storage
   function getWithExpiry(key) {
     const itemStr = localStorage.getItem(key);
     // if the item doesn't exist, return null
@@ -104,6 +105,7 @@ const Creator = (props) => {
     return item.token;
   }
 
+  // Method to handle submission of a new challenge
   const handleSubmit = async () => {
     if (title.value && description.value && tagsChosen.value) {
       try {
@@ -121,10 +123,7 @@ const Creator = (props) => {
             },
           }),
         });
-        const data = await response.json();
-        console.log(data, response);
         if (response.status === 200) {
-          console.log("challenge created");
           setTitle({ ...title, value: null });
           setDescription({ ...description, value: null });
           setTagsChosen({ ...tagsChosen, value: [] });
@@ -139,51 +138,41 @@ const Creator = (props) => {
       }
     }
     if (title.value === null) {
-      let label = title.label;
-      setTitle({ ...title, label: label + " must not be empty", error: true });
-      // title.label += "must not be empty";
-      // title.error = true;
+      setTitle({ ...title, error: true, helperText: "Cannot be empty" });
     }
     if (description.value === null) {
-      let label = description.label;
       setDescription({
         ...description,
-        label: label + " must not be empty",
         error: true,
+        helperText: "Cannot be empty",
       });
-      // description.label += "must not be empty";
-      // description.error = true;
     }
     if (tagsChosen.value === null) {
-      let label = tagsChosen.label;
       setTagsChosen({
         ...tagsChosen,
-        label: label + " must not be empty",
         error: true,
+        helperText: "Cannot be empty",
       });
-      // tagsChosen.label += "must not be empty";
-      // tagsChosen.error = true;
     }
   };
 
+  // Method to check the emptiness of an input field
   const checkIsEmpty = (e, field, setField) => {
-    console.log(
-      `Inside checkIsEmpty method ${{ ...[field] }}`,
-      field,
-      e.target.value
-    );
+    let helpingText = field.helperText;
     if (
       e.target?.value.length === 0 ||
       e.target.value === null ||
       e.target.value === ""
     ) {
-      console.log(`Its is true that field is empty`);
       setField({ ...field, helperText: "Cannot be empty", error: true });
+    } else {
+      setField({ ...field, helperText: helpingText, error: false });
     }
   };
 
   const children = (
     <div className="creator">
+      {/* Creator component to handle new challenge */}
       <TextField
         label={title.label}
         className={classes.formFields}

@@ -5,10 +5,10 @@ const { v4: uuid } = require("uuid");
 const challenges = require("../Mocks/challenges");
 const users = require("../Mocks/users");
 
+// Method to check the token's validity
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  // console.log(token);
   let user = null;
   if (token === null || token === undefined)
     res.status(401).json({ error: "Authentication required" });
@@ -16,7 +16,6 @@ const authenticateToken = (req, res, next) => {
     try {
       user = jwt.verify(token, process.env.TokenSecret);
       req.user = user;
-      console.log(`User found${user}`);
       next();
     } catch (error) {
       if (error.name === "TokenExpiredError")
@@ -26,12 +25,7 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-router.get("/", (req, res, next) => {
-  //   res.send("Welcome to our app");
-  res.status(200).json({ users, challenges });
-  // res.status(200).json({ UUID: uuid() });
-});
-
+// A protected route to send back the challenges
 router.get("/home", authenticateToken, (req, res, next) => {
   users.map((user) => {
     challenges.map((challenge) => {
@@ -43,6 +37,7 @@ router.get("/home", authenticateToken, (req, res, next) => {
   res.status(200).json({ challenges });
 });
 
+// A protected route to send back the particular challenges created by a specific requesting user
 router.get("/myChallenges", authenticateToken, (req, res, next) => {
   const myChallenges = challenges.filter((challenge) => {
     return challenge.createdBy === req.user.employeeID;
@@ -50,6 +45,7 @@ router.get("/myChallenges", authenticateToken, (req, res, next) => {
   res.status(200).json({ myChallenges });
 });
 
+// A protected route to send back the challenges taken by a specific requesting user
 router.get("/takenChallenges", authenticateToken, (req, res, next) => {
   const takenChallenges = challenges.filter((challenge) => {
     return challenge.takenBy.includes(req.user.employeeID);
@@ -57,6 +53,7 @@ router.get("/takenChallenges", authenticateToken, (req, res, next) => {
   res.status(200).json({ takenChallenges });
 });
 
+// A protected route to create a new challenge
 router.post("/createChallenge", authenticateToken, (req, res, next) => {
   const challenge = req.body.challenge;
   req.body.challenge.challengeID = uuid();
@@ -66,13 +63,7 @@ router.post("/createChallenge", authenticateToken, (req, res, next) => {
   req.body.challenge.takenBy = [];
   req.body.challenge.voters = [];
   req.body.challenge.collaboraters = [];
-  console.log(`The challenge data ${req.body.challenge}`);
   try {
-    /*
-      var msec = Date.parse(new Date());
-var d = new Date(msec);
-document.getElementById("demo").innerHTML = msec;
-      */
     challenges.push(req.body.challenge);
     res.status(200).json({ message: "Created a new challenge" });
   } catch (error) {
@@ -80,6 +71,7 @@ document.getElementById("demo").innerHTML = msec;
   }
 });
 
+// A protected route to accept a particular challenge by the requesting user
 router.post("/takeChallenge", authenticateToken, (req, res, next) => {
   try {
     challenges.forEach((challenge) => {
@@ -104,6 +96,7 @@ router.post("/takeChallenge", authenticateToken, (req, res, next) => {
   }
 });
 
+// A protected route to handle the voting functionality of a challenge
 router.post("/vote", authenticateToken, (req, res, next) => {
   console.log(req.body.challengeID);
   try {
