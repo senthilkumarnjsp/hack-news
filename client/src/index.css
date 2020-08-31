@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.creator {
+  display: flex;
+  flex-flow: column;
+  align-content: space-between;
+}
+
+.login-box {
+  border: 4px solid saddlebrown;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: gainsboro;
+  min-width: 320px;
+  max-width: 400px;
+  width: 40%;
+  height: 200px;
+  margin: 50px auto;
+}
+
+.login-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: gainsboro;
+  width: 80%;
+  outline: none;
+  border-color: #282c34;
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  height: 13%;
+  text-align: center;
+}
+
+.login-input:focus {
+  border-color: saddlebrown;
+}
+
+.login-box button {
+  width: 40%;
+  font-size: 23px;
+  border-radius: 5px;
+  margin: 15px auto;
+  background-color: black;
+  border: 3px solid saddlebrown;
+  text-transform: uppercase;
+  color: gainsboro;
+}
