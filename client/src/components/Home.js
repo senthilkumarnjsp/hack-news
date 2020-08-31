@@ -70,6 +70,7 @@ const Home = (props) => {
 
   // Method to retrieve token stored in local storage and to check its expiry
   function getWithExpiry(key) {
+    console.log(`${props.employeeID} got from login component`);
     const itemStr = localStorage.getItem(key);
     // if the item doesn't exist, return null
     if (!itemStr) {
@@ -171,10 +172,10 @@ const Home = (props) => {
                             handleVoteOrTake(challenge.challengeID, "/vote")
                           }
                           color="secondary"
-                          disabled={challenge.createdBy === props.employee}
+                          disabled={challenge.createdBy === props.employeeID}
                         >
                           <i className="medium material-icons">
-                            {challenge.voters.includes(props.employee)
+                            {challenge.voters.includes(props.employeeID)
                               ? "favorite"
                               : "favorite_border"}
                           </i>

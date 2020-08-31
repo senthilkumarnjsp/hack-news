@@ -28,7 +28,7 @@ function App() {
             exact
             render={() => <Login handleUser={handleEmployeeChange} />}
           />
-          <Route path="/home" render={() => <Home employee={employee} />} />
+          <Route path="/home" render={() => <Home employeeID={employee} />} />
         </Switch>
       </div>
     </Router>
