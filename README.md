@@ -93,9 +93,11 @@ The React application runs on **localhost:3000** and the Node server runs on **l
 
 ## Dependencies
 
-#### Client Dependency
+#### Client Dependencies
 
 1. **`react-router-dom`** : This package is to use routing inside our React app _(to give our Single Page Application (SPA) application a multipage feel)_
+
+2. **`@material-ui/core`** : This package is used for creating beautiful UI components those use material design
 
 #### Server Dependencies
 
